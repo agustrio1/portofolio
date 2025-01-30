@@ -25,32 +25,54 @@ export function Navbar() {
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
+      transition={{ type: "spring", stiffness: 100, damping: 20 }}
       className={`sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 ${
         isScrolled ? "shadow-sm" : ""
       }`}
     >
       <div className="container relative flex h-16 items-center justify-between">
-
         <MobileNav />
-        
+
         <Link href="/" className="ml-8 hidden md:block">
-          <span className="text-xl font-bold">Trio Agus </span>
+          <motion.span
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="text-xl font-bold bg-gradient-to-r from-primary to-primary-foreground bg-clip-text text-transparent"
+          >
+            Trio Agus
+          </motion.span>
         </Link>
 
         <nav className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center space-x-8 text-sm font-medium">
-          <Link href="/" className="transition-colors hover:text-foreground/80">
-            Home
-          </Link>
-          <Link href="#projects" className="transition-colors hover:text-foreground/80">
-            Projects
-          </Link>
-          <Link href="#skills" className="transition-colors hover:text-foreground/80">
-            Skills
-          </Link>
-          <Link href="#contact" className="transition-colors hover:text-foreground/80">
-            Contact
-          </Link>
+          {[
+            { href: "/", label: "Home" },
+            { href: "#projects", label: "Projects" },
+            { href: "#skills", label: "Skills" },
+            { href: "#contact", label: "Contact" },
+          ].map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="transition-colors hover:text-primary relative"
+            >
+              <motion.span
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="block"
+              >
+                {link.label}
+              </motion.span>
+              <motion.div
+                layoutId="underline"
+                className="absolute bottom-0 left-0 w-full h-0.5 bg-primary"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                transition={{ duration: 0.3 }}
+              />
+            </Link>
+          ))}
         </nav>
+
         <div className="flex items-center">
           <Button
             variant="ghost"

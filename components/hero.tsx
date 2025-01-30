@@ -1,8 +1,8 @@
-"use client"
-import { motion } from "framer-motion"
-import { ArrowDown } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { useEffect, useState } from "react"
+"use client";
+import { motion } from "framer-motion";
+import { ArrowDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 
 interface TypewriterTextProps {
   text: string;
@@ -10,43 +10,43 @@ interface TypewriterTextProps {
 }
 
 const TypewriterText: React.FC<TypewriterTextProps> = ({ text, delay = 100 }) => {
-  const [displayText, setDisplayText] = useState("")
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [displayText, setDisplayText] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     if (currentIndex < text.length) {
       const timeout = setTimeout(() => {
-        setDisplayText(prev => prev + text[currentIndex])
-        setCurrentIndex(c => c + 1)
-      }, delay)
-      return () => clearTimeout(timeout)
+        setDisplayText((prev) => prev + text[currentIndex]);
+        setCurrentIndex((c) => c + 1);
+      }, delay);
+      return () => clearTimeout(timeout);
     }
-  }, [currentIndex, text, delay])
+  }, [currentIndex, text, delay]);
 
-  return <span>{displayText}</span>
-}
+  return <span>{displayText}</span>;
+};
 
 export function Hero() {
   const scrollToProjects = () => {
-    const projectsSection = document.getElementById("projects")
-    projectsSection?.scrollIntoView({ behavior: "smooth" })
-  }
+    const projectsSection = document.getElementById("projects");
+    projectsSection?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const roles = [
     "Full Stack Developer",
     "Web Developer",
     "JavaScript Developer",
     "React Developer",
-  ]
+  ];
 
-  const [currentRoleIndex, setCurrentRoleIndex] = useState(0)
+  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentRoleIndex((prev) => (prev + 1) % roles.length)
-    }, 3000)
-    return () => clearInterval(interval)
-  }, [])
+      setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section className="container relative min-h-[calc(100vh-4rem)] bg-gradient-to-b from-background to-background/80">
@@ -69,42 +69,49 @@ export function Hero() {
                 <TypewriterText text="Selamat Datang di Portfolio Saya" delay={50} />
               </span>
             </motion.div>
-            <h1 className="bg-gradient-to-r from-primary to-primary-foreground bg-clip-text text-4xl font-bold tracking-tighter text-transparent sm:text-5xl md:text-6xl lg:text-7xl">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="bg-gradient-to-r from-primary to-primary-foreground bg-clip-text text-4xl font-bold tracking-tighter text-transparent sm:text-5xl md:text-6xl lg:text-7xl"
+            >
               {roles[currentRoleIndex]}
-            </h1>
-            <p className="mx-auto max-w-[700px] text-lg text-muted-foreground md:text-xl">
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              className="mx-auto max-w-[700px] text-lg text-muted-foreground md:text-xl"
+            >
               Spesialis dalam pengembangan aplikasi web modern menggunakan teknologi terkini seperti{" "}
               <span className="text-primary">JavaScript</span>,{" "}
               <span className="text-primary">TypeScript</span>,{" "}
               <span className="text-primary">React</span>, dan{" "}
               <span className="text-primary">Next.js</span>,{" "}
-              <span className="text-primary">Laravel</span>,
-               serta {" "}
-              <span className="text-primary">Wordpress</span>
-            </p>
+              <span className="text-primary">Laravel</span>, serta{" "}
+              <span className="text-primary">Wordpress</span>.
+            </motion.p>
           </div>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
+            transition={{ delay: 0.8 }}
             className="flex flex-col items-center justify-center gap-4 sm:flex-row"
           >
-            <Button 
-              size="lg" 
-              onClick={scrollToProjects} 
+            <Button
+              size="lg"
+              onClick={scrollToProjects}
               className="bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-colors duration-300 min-w-[160px]"
             >
               Lihat Portfolio
             </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              asChild 
+            <Button
+              size="lg"
+              variant="outline"
+              asChild
               className="border-blue-600 hover:bg-blue-600 hover:text-white font-semibold transition-colors duration-300 min-w-[160px]"
             >
-              <a href="#contact">
-                Hubungi Saya
-              </a>
+              <a href="#contact">Hubungi Saya</a>
             </Button>
           </motion.div>
         </motion.div>
@@ -114,10 +121,10 @@ export function Hero() {
           transition={{ delay: 1 }}
           className="absolute bottom-8 hidden animate-bounce md:block"
         >
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            onClick={scrollToProjects} 
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={scrollToProjects}
             className="rounded-full hover:bg-blue-600/10"
           >
             <ArrowDown className="h-6 w-6" />
@@ -125,5 +132,5 @@ export function Hero() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }
